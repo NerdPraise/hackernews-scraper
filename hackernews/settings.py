@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
-import dj_database_url
+#import dj_database_url
 from dotenv import load_dotenv
 from celery.schedules import crontab
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'news_scrape',
 ]
 
 MIDDLEWARE = [
@@ -129,6 +130,7 @@ STATIC_URL = '/static/'
 
 
 CELERY_BROKER_URL = os.getenv('REDIS_URL')
+print(CELERY_BROKER_URL)
 CELERY_RESULT_BACKEND = os.getenv('REDIS_URL')
 CELERY_ACCEPT_CONTENT = ['application/json']  
 CELERY_TASK_SERIALIZER = 'json'  
