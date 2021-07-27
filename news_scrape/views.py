@@ -4,8 +4,9 @@ from .models import News
 # Create your views here.
 
 
-class HomeView(ListView):
+class NewsList(ListView):
     template_name = 'home.html'
     queryset = News.objects.all()
+    print(queryset)
     context_object_name = 'news'
     paginate_by = 15
