@@ -7,6 +7,6 @@ from .models import News
 class NewsList(ListView):
     template_name = 'home.html'
     queryset = News.objects.all()
-    print(queryset)
+    print(len(queryset))
     context_object_name = 'news'
     paginate_by = 15

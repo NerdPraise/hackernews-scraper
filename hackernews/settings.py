@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'news_scrape',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -135,7 +136,6 @@ STATIC_URL = '/static/'
 
 
 CELERY_BROKER_URL = os.getenv('REDIS_URL')
-print(CELERY_BROKER_URL)
 CELERY_RESULT_BACKEND = os.getenv('REDIS_URL')
 CELERY_ACCEPT_CONTENT = ['application/json']  
 CELERY_TASK_SERIALIZER = 'json'  
@@ -143,8 +143,8 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_CRONTAB_MINUTE = os.getenv('CELERY_CRONTAB_MINUTE')
 
 CELERY_BEAT_SCHEDULE = {
-    "fetch_new_tips": {
-        "task": "fetch_new_tips",
+    "add_news_to_db": {
+        "task": "add_news_to_db",
         "schedule": crontab(minute=f"*/{CELERY_CRONTAB_MINUTE}"),
     },
 }

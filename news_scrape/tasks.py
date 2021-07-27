@@ -41,7 +41,7 @@ def scrape_news(query_type):
 
 
 @shared_task(name="add_news_to_db")
-def add_to_db():
+def add_news_to_db():
     # For story items
     story_items = scrape_news('new')
 
@@ -55,7 +55,7 @@ def add_to_db():
         try:
             if item_id < last_item.item_id:
                 pass
-        except KeyError:
+        except AttributeError:
             pass
         type = item.get('type')
         author = item.get('by')
@@ -112,4 +112,4 @@ def add_to_db():
     news_object.save()
 
 
-add_to_db()
+add_news_to_db()

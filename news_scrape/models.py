@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class News(models.Model):
-    item_id = models.IntegerField(null=True)
+    item_id = models.PositiveIntegerField(null=True)
     type = models.CharField(_('Item Type'), max_length=255)
     author = models.CharField(_('Item Author'), max_length=255)
     date_created = models.DateTimeField(_('Creation Time'), null=True)
@@ -18,7 +18,7 @@ class News(models.Model):
     descendants = models.IntegerField(
         _('Comment count'), blank=True, null=True)
     score = models.IntegerField(_('Item Score'), blank=True, null=True)
-    url = models.CharField(_('Item url'), max_length=255, blank=True)
+    url = models.CharField(_('Item url'), max_length=255,null=True, blank=True)
     title = models.CharField(_('Item Title'), blank=True, max_length=255)
 
     def __str__(self):
