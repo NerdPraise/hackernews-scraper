@@ -44,9 +44,19 @@ def scrape_news(query_type):
 def add_to_db():
     # For story items
     story_items = scrape_news('new')
-    print(story_items)
-    
+
+    # Since we dont want repetitions, we need to filter out already
+    # saved news in our batch of ids, and since they are not consecutive
+    # (comments uses the same base model,) I had to check against stored objects
+
+    last_item = News.objects.last()  # Get the last item from the db
     for item in story_items:
+        item_id = item.get('id')
+        try:
+            if item_id < last_item.item_id:
+                pass
+        except KeyError:
+            pass
         type = item.get('type')
         author = item.get('by')
         kids = item.get('kids')
@@ -57,6 +67,7 @@ def add_to_db():
 
         date_created = unix_to_datetime(item['time'])
         news_object = News.objects.create(
+            item_id=item_id,
             type=type,
             author=author,
             date_created=date_created,
@@ -71,6 +82,12 @@ def add_to_db():
     # For jobs items
     job_items = scrape_news('job')
     for item in job_items:
+        item_id = item.get('id')
+        try:
+            if item_id < last_item.item_id:
+                pass
+        except KeyError:
+            pass
         type = item.get('type')
         author = item.get('by')
         kids = item.get('kids')
@@ -81,6 +98,7 @@ def add_to_db():
 
         date_created = unix_to_datetime(item['time'])
         news_object = News.objects.create(
+            item_id=item_id,
             type=type,
             author=author,
             date_created=date_created,
@@ -92,4 +110,6 @@ def add_to_db():
 
         )
     news_object.save()
+
+
 add_to_db()
