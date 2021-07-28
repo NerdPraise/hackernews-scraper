@@ -26,7 +26,11 @@
                 </div>
          </div>
      </div>
+     <nav aria-label="page navigation" class="navigation">
+        {% if is_paginated %}{% load paginator %}{% paginator 4 %}{% endif %}
+    </nav>
  </div>
+
 
 
  {% endfor %} {% endblock content %}
