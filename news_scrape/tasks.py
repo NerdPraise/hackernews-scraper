@@ -86,7 +86,7 @@ def add_news_to_db():
         try:
             if item_id < last_item.item_id:
                 pass
-        except KeyError:
+        except AttributeError:
             pass
         type = item.get('type')
         author = item.get('by')

@@ -14,7 +14,7 @@ class News(models.Model):
     deleted = models.BooleanField(_('Is Item Deleted?'), default=False)
     dead = models.BooleanField(_('Is Item Dead?'), default=False)
     is_posted = models.BooleanField(_('Is Item Posted?'), default=False)
-    kids = ArrayField(ArrayField(models.IntegerField()), blank=True, null=True)
+    kids = ArrayField(models.IntegerField(), blank=True, null=True)
     descendants = models.IntegerField(
         _('Comment count'), blank=True, null=True)
     score = models.IntegerField(_('Item Score'), blank=True, null=True)
