@@ -5,7 +5,7 @@ from .models import News
 
 
 class NewsList(ListView):
-    template_name = 'home.html'
+    template_name = 'news_list.html'
     queryset = News.objects.all()
     print(len(queryset))
     context_object_name = 'news'

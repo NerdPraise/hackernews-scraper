@@ -79,7 +79,7 @@ TEMPLATES = [
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS':[
+    'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
     ],
 }
@@ -146,8 +146,8 @@ STATIC_URL = '/static/'
 
 CELERY_BROKER_URL = os.getenv('REDIS_URL')
 CELERY_RESULT_BACKEND = os.getenv('REDIS_URL')
-CELERY_ACCEPT_CONTENT = ['application/json']  
-CELERY_TASK_SERIALIZER = 'json'  
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_CRONTAB_MINUTE = os.getenv('CELERY_CRONTAB_MINUTE')
 
