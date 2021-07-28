@@ -1,7 +1,9 @@
 {% extends 'base.html' %} {% load static %} {% block header %}
-<link rel="stylesheet" href="{% static 'home.css' %}" />
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock header %} {% block content %}
+<br> <br> <br>
  {% for new in news %} 
+ <div id="content" class="clearfix">
  <div class="container">
      <div class="row">
             </div>
@@ -26,11 +28,15 @@
                 </div>
          </div>
      </div>
-     <nav aria-label="page navigation" class="navigation">
-        {% if is_paginated %}{% load paginator %}{% paginator 4 %}{% endif %}
-    </nav>
+     {% endfor %}
+     <div class="pagination">
+        <nav aria-label="page navigation" class="navigation">
+            {% if is_paginated %}{% load paginator %}{% paginator 4 %}{% endif %}
+        </nav>
+     </div>
+     
  </div>
 
 
 
- {% endfor %} {% endblock content %}
+ {% endblock content %}
