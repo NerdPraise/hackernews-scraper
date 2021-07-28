@@ -13,3 +13,12 @@ class NewsListView(generics.ListCreateAPIView):
     pagination_class = CustomPaginator
     serializer_class = NewsSerializer
     queryset = News.objects.order_by('-date_created')
+
+    filter_fields = (
+        'author',
+        'type',
+        'is_posted',
+    )
+
+    def post(self, request, *args, **kwargs):
+        pass

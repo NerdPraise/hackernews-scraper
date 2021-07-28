@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'news_scrape',
     'django_celery_beat',
+    # Django Filters
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +77,12 @@ TEMPLATES = [
     },
 ]
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS':[
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ],
+}
 WSGI_APPLICATION = 'hackernews.wsgi.application'
 
 

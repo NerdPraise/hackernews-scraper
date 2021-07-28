@@ -16,10 +16,13 @@ def scrape_news(query_type):
     '''
 
     # Newest Stories
-    query_url = f"https://hacker-news.firebaseio.com/v0/{query_type}stories.json?print=pretty"
-    r = requests.get(query_url)
-    ids = r.json()
-
+    ids = []
+    for query in query_type:
+        query_url = f"https://hacker-news.firebaseio.com/v0/{query}stories.json?print=pretty"
+        r = requests.get(query_url)
+        ids = ids + r.json()
+    # order the list to put the biggest ids first
+    ids.sort(reverse=True)
     # we only need latest 100
     items = []
     recent = ids[:100]
@@ -29,7 +32,6 @@ def scrape_news(query_type):
     # and then rearranged in decreasing order
     # since the biggest id is always the latest
 
-    # 
     for item in recent:
         items.append(
             f"https://hacker-news.firebaseio.com/v0/item/{item}.json?print=pretty")
@@ -42,74 +44,47 @@ def scrape_news(query_type):
 
 @shared_task(name="add_news_to_db")
 def add_news_to_db():
-    # For story items
-    story_items = scrape_news('new')
+    # Scrape for Items
+    story_items = scrape_news(['new', 'job'])
 
     # Since we dont want repetitions, we need to filter out already
     # saved news in our batch of ids, and since they are not consecutive
     # (comments uses the same base model,) I had to check against stored objects
 
-    last_item = News.objects.last()  # Get the last item from the db
+    latest_item = News.objects.order_by('-item_id').first()
+    # Get the last item from the db
     for item in story_items:
         item_id = item.get('id')
         try:
-            if item_id < last_item.item_id:
+            if item_id <= latest_item.item_id:
                 pass
+            else:
+                type = item.get('type')
+                author = item.get('by')
+                kids = item.get('kids')
+                descendants = item.get('descendants')
+                score = item.get('score')
+                url = item.get('url')
+                title = item.get('title')
+
+                date_created = unix_to_datetime(item['time'])
+                news_object = News.objects.create(
+                    item_id=item_id,
+                    type=type,
+                    author=author,
+                    date_created=date_created,
+                    kids=kids,
+                    descendants=descendants,
+                    score=score,
+                    url=url,
+                    title=title
+
+                )
+
+            news_object.save()
         except AttributeError:
             pass
-        type = item.get('type')
-        author = item.get('by')
-        kids = item.get('kids')
-        descendants = item.get('descendants')
-        score = item.get('score')
-        url = item.get('url')
-        title = item.get('title')
-
-        date_created = unix_to_datetime(item['time'])
-        news_object = News.objects.create(
-            item_id=item_id,
-            type=type,
-            author=author,
-            date_created=date_created,
-            kids=kids,
-            descendants=descendants,
-            score=score,
-            url=url,
-            title=title
-
-        )
-
-    # For jobs items
-    job_items = scrape_news('job')
-    for item in job_items:
-        item_id = item.get('id')
-        try:
-            if item_id < last_item.item_id:
-                pass
-        except AttributeError:
-            pass
-        type = item.get('type')
-        author = item.get('by')
-        kids = item.get('kids')
-        descendants = item.get('descendants')
-        score = item.get('score')
-        url = item.get('url')
-        title = item.get('title')
-
-        date_created = unix_to_datetime(item['time'])
-        news_object = News.objects.create(
-            item_id=item_id,
-            type=type,
-            author=author,
-            date_created=date_created,
-            kids=kids,
-            descendants=descendants,
-            score=score,
-            url=url,
-            title=title
-
-        )
-    news_object.save()
+       
 
 
 add_news_to_db()
