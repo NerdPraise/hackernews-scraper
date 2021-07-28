@@ -33,11 +33,23 @@ class NewsDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = News.objects.get_queryset()
 
     def update(self, request, *args, **kwargs):
-        news_id = kwargs.get('id')
+        news_id = kwargs.get('pk')
         try:
             news = News.objects.get(id=news_id)
             if not news.is_posted:
                 return Response({'message': 'You can not edit an item that is not manually posted'}, status=HTTP_400_BAD_REQUEST)
-        except news.DoesNotExist():
+
+            return self.update(request, *args, **kwargs)
+        except News.DoesNotExist:
             return Response({'message': 'Item does not exist'}, status=HTTP_404_NOT_FOUND)
-        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        news_id = kwargs.get('pk')
+        try:
+            news = News.objects.get(id=news_id)
+            if not news.is_posted:
+                return Response({'message': 'You can not delete an item that is not manually posted'}, status=HTTP_400_BAD_REQUEST)
+
+            return self.dele(request, *args, **kwargs)
+        except News.DoesNotExist:
+            return Response({'message': 'Item does not exist'}, status=HTTP_404_NOT_FOUND)
