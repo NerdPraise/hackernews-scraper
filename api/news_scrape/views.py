@@ -1,3 +1,5 @@
+from rest_framework.serializers import Serializer
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from api.news_scrape.serializers import NewsSerializer
 from news_scrape.models import News
 from rest_framework import generics
@@ -20,5 +22,22 @@ class NewsListView(generics.ListCreateAPIView):
         'is_posted',
     )
 
-    def post(self, request, *args, **kwargs):
-        pass
+    def perform_create(self, serializer):
+        is_posted = serializer.validated_data.get('is_posted')
+        is_posted = True
+        serializer.save(is_posted=is_posted)
+
+
+class NewsDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = NewsSerializer
+    queryset = News.objects.get_queryset()
+
+    def update(self, request, *args, **kwargs):
+        news_id = kwargs.get('id')
+        try:
+            news = News.objects.get(id=news_id)
+            if not news.is_posted:
+                return Response({'message': 'You can not edit an item that is not manually posted'}, status=HTTP_400_BAD_REQUEST)
+        except news.DoesNotExist():
+            return Response({'message': 'Item does not exist'}, status=HTTP_404_NOT_FOUND)
+        return self.update(request, *args, **kwargs)

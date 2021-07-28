@@ -18,12 +18,12 @@ class News(models.Model):
     descendants = models.IntegerField(
         _('Comment count'), blank=True, null=True)
     score = models.IntegerField(_('Item Score'), blank=True, null=True)
-    url = models.CharField(_('Item url'), max_length=255,null=True, blank=True)
+    url = models.CharField(_('Item url'), max_length=255,
+                           null=True, blank=True)
     title = models.CharField(_('Item Title'), blank=True, max_length=255)
 
     def __str__(self):
         return str(self.id)
-
 
 
 class Comment(models.Model):
