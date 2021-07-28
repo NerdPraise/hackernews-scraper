@@ -51,7 +51,7 @@ def add_news_to_db():
     # saved news in our batch of ids, and since they are not consecutive
     # (comments uses the same base model,) I had to check against stored objects
 
-    latest_item = News.objects.order_by('-item_id').first()
+    latest_item = News.objects.exclude(item_id=None).order_by('-item_id').first()
     # Get the last item from the db
     for item in story_items:
         item_id = item.get('id')
@@ -81,10 +81,9 @@ def add_news_to_db():
 
                 )
 
-            news_object.save()
+                news_object.save()
         except AttributeError:
-            pass
-       
+            pass   
 
 
 add_news_to_db()
