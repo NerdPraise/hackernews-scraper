@@ -11,10 +11,12 @@ class NewsList(ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        filter_param = self.request.GET.get('story')
-        breakpoint()
-        queryset = News.objects.filter(
-            type=filter_param).order_by('date_created')
+        filter_param = self.request.GET.get('news_type')
+        if filter_param:
+            queryset = News.objects.filter(
+                type=filter_param).order_by('date_created')
+        else:
+            queryset = News.objects.all().order_by('-date_created')
         return queryset
 
 

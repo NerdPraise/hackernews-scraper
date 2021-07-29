@@ -213,33 +213,3 @@ nav .nav-items li a:hover {
   color: #26d63b;
 }
 
-html body nav.main-nav div.nav-items li .dropdown-content {
-  display: none;
-  position: absolute;
-}
-
-@media screen and (min-width: 980px) {
-  html body nav.main-nav div.nav-items li.dropdown:hover > .dropdown-content {
-    display: block;
-    background-color: #1e232b;
-    width: 100%;
-    bottom: -80px;
-  }
-}
-
-@media screen and (max-width: 980px) {
-  html body nav.main-nav div.nav-items li .dropdown-content {
-    display: list-item;
-    position: relative;
-  }
-}
-
-button.filter-button {
-  background: none !important;
-  color: #f2f2f2;
-  border: none;
-}
-
-button.filter-button:hover {
-  color: #26d63b;
-}

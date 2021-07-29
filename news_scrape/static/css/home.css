@@ -85,3 +85,55 @@ html[xmlns] .clearfix {
   color: #171c24;
   font-weight: 600;
 }
+/* 
+html body form div.container div.dropdown-content{
+  display: none;
+  position: absolute;
+}
+
+@media screen and (min-width: 980px) {
+  html body nav.main-nav div.nav-items li.dropdown:hover > .dropdown-content {
+    display: block;
+    background-color: #1e232b;
+    width: 100%;
+    bottom: -80px;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  html body nav.main-nav div.nav-items li .dropdown-content {
+    display: list-item;
+    position: relative;
+  }
+}
+
+html body form div.container.filter div.dropdown-content button.filter-button{
+  background: none !important;
+  color: blue;
+  border: none;
+}
+
+html body form div.container.filter div.dropdown-content button.filter-button:hover {
+  color: #26d63b;
+} */
+
+.filter-con{
+  position: relative;
+  width: 60%;
+  height: auto;
+  background-color: #171c24;
+}
+.filter-form{
+  position: fixed;
+  width: auto;
+  height: auto;
+}
+.dropbtn{
+  color: #fff;
+  display: inline;
+  margin-left: 0px;
+}
+.filter-choices {
+  color: #fff;
+  text-align: center;
+}
