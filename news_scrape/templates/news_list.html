@@ -2,31 +2,49 @@
 <link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock header %} {% block content %}
 <br> <br> <br>
- {% for new in news %} 
- <div id="content" class="clearfix">
+{% for new in news %}
+<div id="content" class="clearfix">
     <div class="container-fluid">
-        <div class="jumbotron">
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-10">
-                    <br>
-                    <h3>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <br>
+                <hr>
+
+                <h4>
+                    <span class="title">
                         {{new.title}}
-                    </h3>
-                    <br>
+                    </span>
+                </h4>
+                <small>
+                    <b>Author - {{ new.author }}</b> </small>
+                <br>
+                <div class="text-right">
+                    <b><small>Item Type - {{new.type}}</small></b>
                 </div>
+                <b> <small>{{ new.date_created | timesince }} ago </b>
+                <i class="fas fa-clock "></i></small>
+                <div class="text-right">
+                    <b> <small>{{new.score}} Likes</small> </b>
+                </div>
+                <div class="text-right">
+                    <b> <small>{{new.descendants}} Comments</small> </b>
+                </div>
+
+                <br>
+                <br>
             </div>
         </div>
     </div>
-     {% endfor %}
-     <div class="pagination">
+    {% endfor %}
+    <div class="pagination">
         <nav aria-label="page navigation" class="navigation">
             {% if is_paginated %}{% load paginator %}{% paginator 4 %}{% endif %}
         </nav>
-     </div>
-     
- </div>
+    </div>
+
+</div>
 
 
 
- {% endblock content %}
+{% endblock content %}
