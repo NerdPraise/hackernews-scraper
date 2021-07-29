@@ -137,3 +137,11 @@ html body form div.container.filter div.dropdown-content button.filter-button:ho
   color: #fff;
   text-align: center;
 }
+a.detail-view {
+  text-decoration: none;
+  color: #171c24;
+}
+
+a.detail-view:hover {
+  color: blueviolet;
+}

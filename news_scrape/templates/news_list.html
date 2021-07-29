@@ -38,9 +38,12 @@
                 <hr>
 
                 <h4>
-                    <span class="title">
-                        {{new.title}}
-                    </span>
+                    <a class="detail-view" href="{% url 'news-detail' new.pk %}">
+                        <span class="title">
+                            {{new.title}}
+                        </span>
+                    </a>
+                   
                 </h4>
                 <small>
                     <b>Author - {{ new.author }}</b> </small>

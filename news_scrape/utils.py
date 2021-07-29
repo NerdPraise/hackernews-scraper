@@ -5,5 +5,3 @@ def unix_to_datetime(unixtime):
     tz_dt = timezone.make_aware(dt, timezone.get_default_timezone())
     return tz_dt
 
-def get_news_comments(news_id):
-    
