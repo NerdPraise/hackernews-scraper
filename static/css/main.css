@@ -207,3 +207,6 @@ nav .search-icon{
     font-size: 16px;
   }
 }
+.page{
+  text-decoration: none;
+}

@@ -37,12 +37,9 @@
         </div>
     </div>
     {% endfor %}
-    <div class="pagination">
-        <nav aria-label="page navigation" class="navigation">
-            {% if is_paginated %}{% load paginator %}{% paginator 4 %}{% endif %}
-        </nav>
-    </div>
-
+    <nav aria-label="page navigation" class="pagination">
+        {% if is_paginated %}{% load paginator %}{% paginator 4 %}{% endif %}
+    </nav>
 </div>
 
 

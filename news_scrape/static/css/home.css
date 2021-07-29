@@ -1,26 +1,28 @@
 #content {
-    display: block;
-    clear: both;
-    margin-bottom: 20px;
-    min-height: 500px;
-  }
-  
+  display: block;
+  clear: both;
+  margin-bottom: 20px;
+  min-height: 500px;
+}
+
 #left-sidebar {
   width: 35%;
   float: left;
   margin: 0 15px;
-  background: #ccc; 
-  min-height: 500px; 
+  background: #ccc;
+  min-height: 500px;
   text-align: center;
 }
 #right {
   float: right;
   width: 62%;
-  background: #efefef; 
+  background: #efefef;
   text-align: center;
   min-height: 500px;
 }
-footer{text-align: center;}
+footer {
+  text-align: center;
+}
 /* clearfix */
 .clearfix:after {
   content: “.”;
@@ -40,47 +42,46 @@ html[xmlns] .clearfix {
 * html .clearfix {
   height: 1%;
 }
-.inline{
+.inline {
   float: right;
 }
-.news{
+.news {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  margin-bottom: .4rem;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 0.4rem;
 }
 
 .pagination {
   margin-bottom: 3rem;
-}
-
-.pagination .pager {
+  background-color: #f2f2f2;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .pagination .pager .page a {
+  text-decoration: none;
   margin: 0 6px;
-  border: 1px solid #f68b1e;
+  border: 1px solid #171c24;
   padding: 4px;
   -webkit-transition: 0.4s all ease-out;
   transition: 0.4s all ease-out;
-  color: #f68b1e !important;
+  color: #171c24 !important;
 }
 
 .pagination .pager .page a:hover {
-  background-color: #f68b1e;
+  background-color: #171c24;
   color: white !important;
 }
 
 .pagination .pager .current {
-  color: #e48e2c;
+  color: #171c24;
   font-weight: 600;
 }
