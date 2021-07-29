@@ -4,30 +4,20 @@
 <br> <br> <br>
  {% for new in news %} 
  <div id="content" class="clearfix">
- <div class="container">
-     <div class="row">
-            </div>
-            <div class="col-md-12">
-                <div class="card card-body">
-                    {{new.title}}
-                    <div class="card">
-                        {{new.descendants}}
-                    </div>
-                    <div class="card">
-                        {{new.score}}
-                    </div>
-                    <div class="card">
-                        {{new.author}}
-                    </div>
-                    <div class="card">
-                        {{new.type}}
-                    </div>
-                    <div class="card">
-                        {{new.date_created}}
-                    </div>
+    <div class="container-fluid">
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
+                    <br>
+                    <h3>
+                        {{new.title}}
+                    </h3>
+                    <br>
                 </div>
-         </div>
-     </div>
+            </div>
+        </div>
+    </div>
      {% endfor %}
      <div class="pagination">
         <nav aria-label="page navigation" class="navigation">

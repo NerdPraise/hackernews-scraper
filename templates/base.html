@@ -12,37 +12,33 @@
     {% endblock header %}
 </head>
 <body>
-    <div id="wrapper">
-        <nav> 
-            <div class="menu-icon">
-              <span class="fas fa-bars"></span>
-            </div>
-      
-            <div class="logo">HacknerNews Scraper</div>
-      
-            <div class="nav-items">
-                <li><a href="#">Home</a></li>
-              </div>
-      
-            <div class="search-icon">
-              <span class="fas fa-search"></span>
-            </div>
-      
-            <div class="cancel-icon">
-              <span class="fas fa-times"></span>
-            </div>
-      
-            <form action="#">
-              <input type="search" class="search-data" placeholder="Search" required>
-              <button type="submit" class="fas fa-search"></button>
-            </form>
-      
-          </nav> 
-        {% block content %}
-        {% endblock content %}
-    </div>
-
-    
+    <nav> 
+        <div class="menu-icon">
+          <span class="fas fa-bars"></span>
+        </div>
+  
+        <div class="logo">HacknerNews Scraper</div>
+  
+        <div class="nav-items">
+            <li><a href="#">Home</a></li>
+          </div>
+  
+        <div class="search-icon">
+          <span class="fas fa-search"></span>
+        </div>
+  
+        <div class="cancel-icon">
+          <span class="fas fa-times"></span>
+        </div>
+  
+        <form action="#">
+          <input type="search" class="search-data" placeholder="Search" required>
+          <button type="submit" class="fas fa-search"></button>
+        </form>
+  
+      </nav> 
+    {% block content %}
+    {% endblock content %}
     <script>
         const menuBtn = document.querySelector(".menu-icon span");
         const searchBtn = document.querySelector(".search-icon");
