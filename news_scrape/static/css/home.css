@@ -52,3 +52,35 @@ html[xmlns] .clearfix {
           align-items: center;
   margin-bottom: .4rem;
 }
+
+.pagination {
+  margin-bottom: 3rem;
+}
+
+.pagination .pager {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.pagination .pager .page a {
+  margin: 0 6px;
+  border: 1px solid #f68b1e;
+  padding: 4px;
+  -webkit-transition: 0.4s all ease-out;
+  transition: 0.4s all ease-out;
+  color: #f68b1e !important;
+}
+
+.pagination .pager .page a:hover {
+  background-color: #f68b1e;
+  color: white !important;
+}
+
+.pagination .pager .current {
+  color: #e48e2c;
+  font-weight: 600;
+}
