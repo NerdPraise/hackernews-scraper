@@ -1,19 +1,24 @@
 {% extends 'base.html' %} {% load static %} {% block header %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock header %} {% block content %}
-<br> <br> <br>
-            <div class="container">
-                <form action="">
-                    <div>
-                        <input type="checkbox" id="subscribeNews" name="subscribe" value="newsletter">
-                        <label for="subscribeNews">Subscribe to newsletter?</label>
-                      </div>
-                      <div>
-                        <button type="submit">Subscribe</button>
-                      </div>
-                </form>
-            </div>
-               
+    <br>
+
+
+
+
+<br><br>
+<form action="" method="get">
+    <div class="container">
+        li class="dropdown set"><a class="dropbtn" href="#">Filter by</a>
+        <div class="dropdown-content">
+         <ul> <button class="filter-button" type="submit" value={{excel_path}} onclick="" name='job'>Jobs</button></ul>
+         <ul> <button class="filter-button" type="submit" value="story" onclick="location.href='{% url "news-list" %}'" name='story'>Stories</button></ul>
+        </div>
+      </li>
+    </div>
+</form>
+
+<
 {% for new in news %}
 <div id="content" class="clearfix">
     <div class="container-fluid">
