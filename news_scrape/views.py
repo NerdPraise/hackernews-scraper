@@ -10,10 +10,16 @@ class NewsList(ListView):
     context_object_name = 'news'
     paginate_by = 20
 
+    def get_queryset(self):
+        
+        return super().get_queryset()
+
 
 class SearchNews(ListView):
     model = News
     template_name = 'news_list.html'
+    context_object_name = 'news'
+    paginate_by = 20
 
     def get_queryset(self):
         search_word = self.request.GET.get('search')
