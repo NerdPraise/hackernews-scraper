@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import ListView
-from .models import News
+from django.views.generic import ListView, DetailView
+from .models import Comment, News
 # Create your views here.
 
 
@@ -31,3 +31,13 @@ class SearchNews(ListView):
         queryset = News.objects.filter(
             title__icontains=search_word).order_by('date_created')
         return queryset
+
+class NewsDetail(DetailView):
+    model = News
+    template_name = 'news_detail.html'
+    context_object_name = 'details'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments'] = Comment.objects.filter()
+        return context

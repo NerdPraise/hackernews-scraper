@@ -24,6 +24,7 @@ def paginator(context, adjacent_pages=2):
     paginator = context['page_obj'].paginator
 
     return {
+        'request': context['request'],
         'page_obj': page_obj,
         'paginator': paginator,
         'hits': context.get('page_obj').paginator.orphans,
