@@ -21,6 +21,37 @@
   
         <div class="nav-items">
             <li><a href="/">Home</a></li>
+            <li>
+
+              <form id="app-cover">
+                          <div id="select-box">
+                                  <input type="checkbox" id="options-view-button">
+                                  <div id="select-button" class="brd">
+                                          <div id="selected-value">
+                                              <span>Filter Items By</span>
+                                          </div>
+                                          <div id="chevrons">
+                                                  <i class="fas fa-chevron-up"></i>
+                                                  <i class="fas fa-chevron-down"></i>
+                                          </div>
+                                  </div>
+                                  <div id="options">
+                                          <div class="option">
+                                                  <input class="s-c top" type="radio" name="job" value="job">
+                                                  <input class="s-c bottom" type="radio" name="job" value="job">
+                                                  <span class="label">Jobs</span>
+                                                  <span class="opt-val">Jobs</span>
+                                          </div>
+                                          <div class="option">
+                                                  <input class="s-c top" type="radio" name="story" value="story">
+                                                  <input class="s-c bottom" type="radio" name="story" value="story">
+                                                  <span class="label">Stories</span>
+                                                  <span class="opt-val">Stories</span>
+                                          </div>
+                                           <div id="option-bg"></div>
+                                  </div>
+                          </div>
+                  </form></li>
           </div>
   
         <div class="search-icon">
@@ -30,6 +61,7 @@
         <div class="cancel-icon">
           <span class="fas fa-times"></span>
         </div>
+        
   
         <form action="{% url 'news-search' %}" method="GET">
           <input type="search" class="search-data" placeholder="Search News Title" name='search' required>

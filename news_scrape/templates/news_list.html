@@ -2,11 +2,25 @@
 <link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock header %} {% block content %}
 <br> <br> <br>
+            <div class="container">
+                <form action="">
+                    <div>
+                        <input type="checkbox" id="subscribeNews" name="subscribe" value="newsletter">
+                        <label for="subscribeNews">Subscribe to newsletter?</label>
+                      </div>
+                      <div>
+                        <button type="submit">Subscribe</button>
+                      </div>
+                </form>
+            </div>
+               
 {% for new in news %}
 <div id="content" class="clearfix">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2"></div>
+            <div class="col-md-2">
+                
+            </div>
             <div class="col-md-8">
                 <br>
                 <hr>
