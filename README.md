@@ -8,7 +8,7 @@ You can also search for news, conveniently paginate through the lists, filter an
 
   
 
-live-url : `hi`
+live-url : `https://hackernews-scraper.herokuapp.com/`
 
 ## Technology Stack
 
@@ -302,3 +302,4 @@ python manage.py test <folder>
 
 ### API Endpoints
 A full documentation of the API endpoints can be found at `api/docs/ ` route.
+* Live API url `https://hackernews-scraper.herokuapp.com/api/news/`
