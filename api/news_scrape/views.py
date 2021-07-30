@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 
 class CustomPaginator(PageNumberPagination):
-    page_size = 100
+    page_size = 50
 
 
 class NewsListView(generics.ListCreateAPIView):

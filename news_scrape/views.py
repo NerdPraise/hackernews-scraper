@@ -17,6 +17,7 @@ class NewsList(ListView):
                 type=filter_param).order_by('date_created')
         else:
             queryset = News.objects.all().order_by('-date_created')
+        print(len(queryset))
         return queryset
 
 
