@@ -85,49 +85,53 @@ def add_news_to_db():
                 news_object.save()
 
                 # create comments
-                for kid in kids:
-                    query_url = f"https://hacker-news.firebaseio.com/v0/item/{kid}.json?print=pretty"
-                    data = getData(query_url)
-                    text = data.get('text')
-                    parent = data.get('parent')
-                    comment_object = Comment.objects.create(
-                        news=news_object,
-                        text=text,
-                        parent=parent
-                    )
-                    comment_object.save()
+                if kids:
+                    for kid in kids:
+                        query_url = f"https://hacker-news.firebaseio.com/v0/item/{kid}.json?print=pretty"
+                        data = getData(query_url)
+                        text = data.get('text')
+                        parent = data.get('parent')
+                        comment_object = Comment.objects.create(
+                            news=news_object,
+                            text=text,
+                            parent=parent
+                        )
+                        comment_object.save()
         except AttributeError:
             pass
    
-def get_news_comments(news, kids):
-    news = news
-    item_id = news.item_id
-    comment_ids = kids
+# def get_news_comments(news, kids):
+#     news = news
+#     item_id = news.item_id
+#     comment_ids = kids
+#     latest_item = Comment.objects.exclude(item_id=None).order_by('-item_id').first()
+#     # get max comment
+#     if comment_ids:
+#         latest = max(comment_ids)
 
-    # get max comment
-    latest = max(comment_ids)
+#         query_url = f"https://hacker-news.firebaseio.com/v0/item/{item_id}.json?print=pretty"
+#         data = getData(query_url)
+#         new_kids = data.get('kids')
 
-    query_url = f"https://hacker-news.firebaseio.com/v0/item/{item_id}.json?print=pretty"
-    data = getData(query_url)
-    new_kids = data.kids
+#         # if there is a kid with higher id that previous latest
+#         # this kid will be appended to the original comment_ids since its newer
 
-    # if there is a kid with higher id that previous latest
-    # this kid will be appended to the original comment_ids since its newer
-
-    for kid in new_kids:
-        if kid <= latest:
-            pass
-        else:
-            query_url = f"https://hacker-news.firebaseio.com/v0/item/{kid}.json?print=pretty"
-            data = getData(query_url)
-            text = data.get('text')
-            parent = data.get('parent')
-            comment_object = Comment.objects.create(
-                news=news,
-                text=text,
-                parent=parent
-            )
-            comment_object.save()
+#         for kid in new_kids:
+#             if kid <= latest:
+#                 pass
+#             else:
+#                 query_url = f"https://hacker-news.firebaseio.com/v0/item/{kid}.json?print=pretty"
+#                 data = getData(query_url)
+#                 text = data.get('text')
+#                 parent = data.get('parent')
+#                 comment_object = Comment.objects.create(
+#                     news=news,
+#                     text=text,
+#                     parent=parent
+#                 )
+#                 comment_object.save()
+#     else:
+#         pass
 
 
 add_news_to_db()

@@ -40,9 +40,10 @@ class NewsDetail(DetailView):
     context_object_name = 'details'
 
     def get_context_data(self, **kwargs):
-        news_id = kwargs.get('pk')
+        news_id = kwargs.get('object').id
         news = News.objects.get(pk=news_id)
         get_news_comments(news, news.kids)
         context = super().get_context_data(**kwargs)
         context['comments'] = Comment.objects.filter(parent=news.item_id)
+        breakpoint()
         return context

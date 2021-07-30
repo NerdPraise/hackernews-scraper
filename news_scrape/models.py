@@ -27,8 +27,9 @@ class News(models.Model):
 
 
 class Comment(models.Model):
-    news = models.ForeignKey(
-        'news_scrape.News', on_delete=models.CASCADE,
-        verbose_name=_('base news'))
     parent = models.IntegerField(_('Comment Parent'), blank=True, null=True)
     text = models.TextField(_('Item Text'), max_length=255, blank=True)
+    date_posted = models.DateTimeField(_('Creation Time'), null=True)
+    kids = ArrayField(models.IntegerField(), blank=True, null=True)
+    type = models.CharField(_('Item Type'), max_length=255)
+    author = models.CharField(_('Item Author'), max_length=255)

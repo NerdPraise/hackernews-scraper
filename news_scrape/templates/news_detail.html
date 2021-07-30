@@ -2,4 +2,8 @@
 <link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock header %} {% block content %}
 <h4>{{details.title}}</h4>
+{{details.text}}
+{% for comment in details.comments %}
+<h6>{{comment.text}}</h6>
+{% endfor %}
 {% endblock content %}
