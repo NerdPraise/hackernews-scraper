@@ -27,8 +27,8 @@ class News(models.Model):
 
 class Comment(models.Model):
     parent = models.IntegerField(_('Comment Parent'), blank=True, null=True)
-    text = models.TextField(_('Item Text'), max_length=255, blank=True)
+    text = models.TextField(_('Item Text'), max_length=255, blank=True, null=True)
     date_posted = models.DateTimeField(_('Creation Time'), null=True)
     kids = ArrayField(models.IntegerField(), blank=True, null=True)
     type = models.CharField(_('Item Type'), max_length=255)
-    author = models.CharField(_('Item Author'), max_length=255)
+    author = models.CharField(_('Item Author'), max_length=255, null=True, blank=True)

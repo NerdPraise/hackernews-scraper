@@ -1,4 +1,3 @@
-from rest_framework.serializers import Serializer
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from api.news_scrape.serializers import NewsSerializer
 from news_scrape.models import News

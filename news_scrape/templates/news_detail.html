@@ -5,16 +5,16 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2">
-
         </div>
         <div class="col-md-8">
-            <h4>{{details.title}} {% if details.is_posted %} <small class="tag">(Posted)</small></h4>
-
+            <h4>{{details.title}}</h4> {% if details.is_posted %}
+            <b><small>(Posted)</small></b> 
             {% endif %}
             {%if details.url %}
 
             <a target="_blank" href="{{details.url}}"><small>{{details.url}}</small></a>
             {% endif %}
+            <br>
 
             {% if not comments %}
             <br><br>
@@ -25,7 +25,7 @@
             <small>
                 <b>Author - {{ comment.author }}</b> </small>
             <br>
-            <div class="text-right">
+            <div class="text">
                 <b><small>Item Type - {{comment.type}}</small></b>
             </div>
             <b> <small>{{ comment.date_posted | timesince }} ago </b>

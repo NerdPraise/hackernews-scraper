@@ -45,8 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'news_scrape',
     'django_celery_beat',
-    # Django Filters
-    'django_filters',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -82,9 +81,16 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 WSGI_APPLICATION = 'hackernews.wsgi.application'
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Hacker News Scraper API',
+    'DESCRIPTION': 'Scrape Stories Using the hackernews API',
+    'VERSION': '1.0.0',
+    
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
