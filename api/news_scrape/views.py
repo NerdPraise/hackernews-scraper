@@ -42,7 +42,9 @@ class NewsDetailView(generics.RetrieveUpdateDestroyAPIView):
         try:
             news = News.objects.get(id=news_id)
             if not news.is_posted:
-                return Response({'message': 'You can not edit an item that is not manually posted'}, status=HTTP_400_BAD_REQUEST)
+                return Response(
+                    {'message': 'You can not edit an item that is not manually posted'},
+                    status=HTTP_400_BAD_REQUEST)
 
             return self.update(request, *args, **kwargs)
         except News.DoesNotExist:

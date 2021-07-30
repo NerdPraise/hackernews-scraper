@@ -1,3 +1,4 @@
+from news_scrape.models import News
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
@@ -8,7 +9,15 @@ class NewsTestCase(APITestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.client = APIClient()
-        cls.list_url = reverse('news-list')
+        cls.list_url = reverse('news-list-api')
+        number_of_news = 5
+
+        for news_id in range(number_of_news):
+            news = News.objects.create(
+                author=f'quickcheck{news_id}',
+                title=f'Hello Dear {news_id}',
+                type='story')
+            news.save()
 
     news_create_data = {
         "type": "story",
@@ -19,17 +28,46 @@ class NewsTestCase(APITestCase):
         "title": "Pure rage of react native"
     }
 
+    update_data = {
+        "title": "Updated pure rage"
+    }
+
     def test_news_api_list(self):
-        pass
+        response = self.client.get(self.list_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['results']), 5)
 
     def test_news_create(self):
-        pass
+        response = self.client.post(self.list_url, self.news_create_data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['type'], 'story')
+
+        # assert that is_posted is true by default
+        self.assertTrue(response.data['is_posted'])
 
     def test_news_update(self):
-        pass
+        # call test news create for the data
+        news = self.client.post(self.list_url, self.news_create_data)
+        news_id = news.data['id']
+        response = self.client.patch(
+            reverse('news-detail-api', args=(news_id,)), self.update_data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_news_delete(self):
-        pass
+        news = self.client.post(reverse('news-list-api'), self.news_create_data)
+        news_id = news.data['id']
+        response = self.client.delete(
+            reverse('news-detail-api', args=(news_id,)))
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_filter_news(self):
-        pass
+        response = self.client.get(reverse('news-list-api')+'?type=story')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+    def test_cannot_edit_scraped_news(self):
+        response = self.client.patch(
+            reverse('news-detail-api', args=(1,)), self.update_data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['message'], 'You can not edit an item that is not manually posted')
+

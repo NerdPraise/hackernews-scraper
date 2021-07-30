@@ -59,7 +59,6 @@ def add_news_to_db():
             item_id = item.get('id')
             if hasattr(latest_item, 'item_id'):
                 if item_id <= latest_item.item_id:
-                    print(item_id, latest_item.item_id)
                     continue
             type = item.get('type')
             author = item.get('by')
