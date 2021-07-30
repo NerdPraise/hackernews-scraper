@@ -55,59 +55,60 @@ def add_news_to_db():
         item_id=None).order_by('-item_id').first()
     # Get the last item from the db
     for item in story_items:
-        item_id = item.get('id')
-        try:
-            if item_id <= latest_item.item_id:
-                pass
-        except AttributeError:
-            pass
-        type = item.get('type')
-        author = item.get('by')
-        kids = item.get('kids')
-        descendants = item.get('descendants')
-        score = item.get('score')
-        url = item.get('url')
-        title = item.get('title')
+        if item:
+            item_id = item.get('id')
+            if hasattr(latest_item, 'item_id'):
+                if item_id <= latest_item.item_id:
+                    print(item_id, latest_item.item_id)
+                    continue
+            type = item.get('type')
+            author = item.get('by')
+            kids = item.get('kids')
+            descendants = item.get('descendants')
+            score = item.get('score')
+            url = item.get('url')
+            title = item.get('title')
 
-        date_created = unix_to_datetime(item['time'])
-        news_object = News.objects.create(
-            item_id=item_id,
-            type=type,
-            author=author,
-            date_created=date_created,
-            kids=kids,
-            descendants=descendants,
-            score=score,
-            url=url,
-            title=title
+            date_created = unix_to_datetime(item['time'])
+            news_object = News.objects.create(
+                item_id=item_id,
+                type=type,
+                author=author,
+                date_created=date_created,
+                kids=kids,
+                descendants=descendants,
+                score=score,
+                url=url,
+                title=title
 
-        )
+            )
 
-        news_object.save()
+            news_object.save()
 
-        # create comments
-        if kids:
-            for kid in kids:
-                query_url = f"https://hacker-news.firebaseio.com/v0/item/{kid}.json?print=pretty"
-                data = getData(query_url)
-                text = data.get('text')
-                parent = data.get('parent')
-                type = data.get('type')
-                author = data.get('by')
-                kids = data.get('kids')
-                date_posted = unix_to_datetime(data['time'])
-                comment_object = Comment.objects.create(
-                    author=author,
-                    text=text,
-                    parent=parent,
-                    kids=kids,
-                    date_posted=date_posted,
-                    type=type
+            # create comments
+            if kids:
+                for kid in kids:
+                    query_url = f"https://hacker-news.firebaseio.com/v0/item/{kid}.json?print=pretty"
+                    data = getData(query_url)
+                    text = data.get('text')
+                    parent = data.get('parent')
+                    type = data.get('type')
+                    author = data.get('by')
+                    kids = data.get('kids')
+                    date_posted = unix_to_datetime(data['time'])
+                    comment_object = Comment.objects.create(
+                        author=author,
+                        text=text,
+                        parent=parent,
+                        kids=kids,
+                        date_posted=date_posted,
+                        type=type
 
-                )
-                comment_object.save()
-    
+                    )
+                    comment_object.save()
 
+
+# TODO
 # def get_news_comments(news, kids):
 #     news = news
 #     item_id = news.item_id
@@ -140,6 +141,5 @@ def add_news_to_db():
 #                 comment_object.save()
 #     else:
 #         pass
-
 
 add_news_to_db()
