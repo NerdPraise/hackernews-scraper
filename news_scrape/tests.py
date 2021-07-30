@@ -1,4 +1,7 @@
+from django.forms.fields import DateTimeField
+from news_scrape.utils import unix_to_datetime
 from django.test import TestCase
+from django.urls import reverse
 from news_scrape.models import Comment, News
 
 # Create your tests here.
@@ -9,24 +12,42 @@ class NewsView(TestCase):
     @classmethod
     def setUpTestData(cls):
         # Set up non-modified objects used by all test methods
-        news = News.objects.create(
-            author='quickcheck', title='Hello world')
-        news.save()
-        news = News.objects.create(
-            author='checkquick', title='Hello hi')
-        news.save()
+        number_of_news = 25  # To test pagination
 
-    def test_news_list(self):
-        print("Method: test_false_is_false.")
-        self.assertFalse(False)
+        for news_id in range(number_of_news):
+            News.objects.create(
+                author=f'quickcheck{news_id}',
+                title=f'Hello Dear {news_id}',
+                type='story')
+
+    def test_news_list_pagination(self):
+        response = self.client.get(reverse('news-list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('is_paginated' in response.context)
+        self.assertTrue(response.context['is_paginated'] == True)
+        self.assertEqual(len(response.context['news_list']), 20)
+
+    def test_correct_template_view(self):
+        response = self.client.get(reverse('news-list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'news_list.html')
+
+        response = self.client.get(reverse('news-detail'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'news_detail.html')
 
     def test_news_filter(self):
-        print("Method: test_false_is_true.")
-        self.assertTrue(False)
+        response = self.client.get(reverse('news-list')+'?type=story')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['news_list']), 20)
 
     def test_news_search(self):
-        print("Method: test_one_plus_one_equals_two.")
-        self.assertEqual(1 + 1, 2)
+        response = self.client.get(reverse('news-list')+'?search=2')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['news_list']), 1)
 
     def test_date_convert_func(self):
-
+        unix_time = 3483204
+        # call the function
+        response = unix_to_datetime(unix_time)
+        self.assertEqual(type(response), DateTimeField)
