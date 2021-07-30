@@ -52,7 +52,8 @@ def add_news_to_db():
     # saved news in our batch of ids, and since they are not consecutive
     # (comments uses the same base model,) I had to check against stored objects
 
-    latest_item = News.objects.exclude(item_id=None).order_by('-item_id').first()
+    latest_item = News.objects.exclude(
+        item_id=None).order_by('-item_id').first()
     # Get the last item from the db
     for item in story_items:
         item_id = item.get('id')
@@ -91,15 +92,23 @@ def add_news_to_db():
                         data = getData(query_url)
                         text = data.get('text')
                         parent = data.get('parent')
+                        type = data.get('type')
+                        author = data.get('by')
+                        kids = data.get('kids')
+                        date_posted = unix_to_datetime(item['time'])
                         comment_object = Comment.objects.create(
-                            news=news_object,
+                            author=author,
                             text=text,
-                            parent=parent
+                            parent=parent,
+                            kids=kids,
+                            date_posted=date_posted,
+                            type=type
+
                         )
                         comment_object.save()
         except AttributeError:
             pass
-   
+
 # def get_news_comments(news, kids):
 #     news = news
 #     item_id = news.item_id

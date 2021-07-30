@@ -1,29 +1,29 @@
 {% extends 'base.html' %} {% load static %} {% block header %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock header %} {% block content %}
-    <br>
+<br>
 
 <br><br>
 
-    <div class="container-fluid filter-con">
+<div class="container-fluid filter-con">
     <form class="" action="{% url 'news-list' %}" method="get">
-        
+
         <div class="dropdown-content">
             <small class="dropbtn">Filter by</small>
             <div class="form-check form-check-inline filter-choices">
                 <input class="form-check-input" type="radio" name="news_type" id="inlineRadio1" value="job">
                 <label class="form-check-label" for="inlineRadio1">Jobs</label>
-              </div>
-              <div class="form-check form-check-inline filter-choices">
+            </div>
+            <div class="form-check form-check-inline filter-choices">
                 <input class="form-check-input" type="radio" name="news_type" id="inlineRadio2" value="story">
                 <label class="form-check-label" for="inlineRadio2">Stories</label>
-              </div>
-              <button type="submit" class="btn btn-secondary">Submit</button>
-              </div>
+            </div>
+            <button type="submit" class="btn btn-secondary">Submit</button>
         </div>
-    </form>
-        
-    </div>
+</div>
+</form>
+
+</div>
 
 
 {% for new in news %}
@@ -31,7 +31,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">
-                
+
             </div>
             <div class="col-md-8">
                 <br>
@@ -43,7 +43,7 @@
                             {{new.title}}
                         </span>
                     </a>
-                   
+
                 </h4>
                 <small>
                     <b>Author - {{ new.author }}</b> </small>
@@ -51,15 +51,22 @@
                 <div class="text-right">
                     <b><small>Item Type - {{new.type}}</small></b>
                 </div>
+                {% if new.date_created is not None %}
                 <b> <small>{{ new.date_created | timesince }} ago </b>
                 <i class="fas fa-clock "></i></small>
+                {% endif %}
                 <div class="text-right">
                     <b> <small>{{new.score}} Likes</small> </b>
                 </div>
+                {% if new.descendants is not None %}
                 <div class="text-right">
                     <b> <small>{{new.descendants}} Comments</small> </b>
                 </div>
 
+                {% endif %}
+                {% if new.is_posted %}
+                <b> <small>Manual Post</small> </b>
+                {% endif %}
                 <br>
                 <br>
             </div>

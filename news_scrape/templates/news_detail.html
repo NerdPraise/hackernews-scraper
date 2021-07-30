@@ -1,9 +1,42 @@
 {% extends 'base.html' %} {% load static %} {% block header %}
-<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+<link rel="stylesheet" href="{% static 'css/detail.css' %}" />
 {% endblock header %} {% block content %}
-<h4>{{details.title}}</h4>
-{{details.text}}
-{% for comment in details.comments %}
-<h6>{{comment.text}}</h6>
-{% endfor %}
+<br><br><br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-8">
+            <h4>{{details.title}} {% if details.is_posted %} <small class="tag">(Posted)</small></h4> 
+            
+            {% endif %}
+            {%if details.url %}
+
+            <a target="_blank" href="{{details.url}}"><small>{{details.url}}</small></a>
+            {% endif %}
+
+            {% if not comments %}
+            <br><br>
+            <h4>No comments for this post</h4>
+            {% endif %}
+            {% for comment in comments %}
+            <br>
+            <small>
+                <b>Author - {{ comment.author }}</b> </small>
+            <br>
+            <div class="text-right">
+                <b><small>Item Type - {{comment.type}}</small></b>
+            </div>
+            <b> <small>{{ comment.date_posted | timesince }} ago </b>
+            <br><br>
+            {% autoescape off %}
+            <h6>{{comment.text}}</h6>
+            {% endautoescape %}
+            <hr>
+            {% endfor %}
+            <a href="{{request.META.HTTP_REFERER|escape}}">Go back</a>
+        </div>
+    </div>
+</div>
 {% endblock content %}
