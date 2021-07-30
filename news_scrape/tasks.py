@@ -1,4 +1,3 @@
-from django.db.models import query
 from news_scrape.models import Comment, News
 from news_scrape.utils import unix_to_datetime
 import requests

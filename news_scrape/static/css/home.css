@@ -117,18 +117,18 @@ html body form div.container.filter div.dropdown-content button.filter-button:ho
   color: #26d63b;
 } */
 
-.filter-con{
+.filter-con {
   position: relative;
   width: 60%;
   height: auto;
   background-color: #171c24;
 }
-.filter-form{
+.filter-form {
   position: fixed;
   width: auto;
   height: auto;
 }
-.dropbtn{
+.dropbtn {
   color: #fff;
   display: inline;
   margin-left: 0px;
