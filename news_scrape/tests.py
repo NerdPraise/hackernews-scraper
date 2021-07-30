@@ -1,8 +1,7 @@
-from django.forms.fields import DateTimeField
 from news_scrape.utils import unix_to_datetime
 from django.test import TestCase
 from django.urls import reverse
-from news_scrape.models import Comment, News
+from news_scrape.models import News
 
 # Create your tests here.
 
@@ -25,29 +24,29 @@ class NewsView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue('is_paginated' in response.context)
         self.assertTrue(response.context['is_paginated'] == True)
-        self.assertEqual(len(response.context['news_list']), 20)
+        self.assertEqual(len(response.context['news']), 20)
 
     def test_correct_template_view(self):
         response = self.client.get(reverse('news-list'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'news_list.html')
 
-        response = self.client.get(reverse('news-detail'))
+        response = self.client.get(reverse('news-detail', args=[1]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'news_detail.html')
 
     def test_news_filter(self):
         response = self.client.get(reverse('news-list')+'?type=story')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['news_list']), 20)
+        self.assertEqual(len(response.context['news']), 20)
 
     def test_news_search(self):
-        response = self.client.get(reverse('news-list')+'?search=2')
+        response = self.client.get(reverse('news-search')+'?search=2')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['news_list']), 1)
+        self.assertEqual(len(response.context['news']), 7)
 
     def test_date_convert_func(self):
         unix_time = 3483204
         # call the function
         response = unix_to_datetime(unix_time)
-        self.assertEqual(type(response), DateTimeField)
+        self.assertEqual(str(type(response)), "<class 'datetime.datetime'>")
