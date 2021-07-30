@@ -76,7 +76,7 @@ pip install virtualenv
 
   
 
-git clone https://github.com/gotahia/ecommerce_api.git
+git clone https://github.com/ferrumie/hackernews-scraper
 
   
   
@@ -106,19 +106,12 @@ virtualenv venv
 
 ```
 
-  
-
 source venv/bin/activate
-
-  
 
 ```
 
-  
-
 - On Windows:
 
-  
 
 ```
 
@@ -126,11 +119,7 @@ source venv/bin/activate
 
 cd venv/scripts
 
-  
-
 activate
-
-  
 
 ```
 
