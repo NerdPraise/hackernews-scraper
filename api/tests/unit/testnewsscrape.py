@@ -53,7 +53,8 @@ class NewsTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_news_delete(self):
-        news = self.client.post(reverse('news-list-api'), self.news_create_data)
+        news = self.client.post(
+            reverse('news-list-api'), self.news_create_data)
         news_id = news.data['id']
         response = self.client.delete(
             reverse('news-detail-api', args=(news_id,)))
@@ -63,10 +64,9 @@ class NewsTestCase(APITestCase):
         response = self.client.get(reverse('news-list-api')+'?type=story')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-
     def test_cannot_edit_scraped_news(self):
         response = self.client.patch(
             reverse('news-detail-api', args=(1,)), self.update_data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data['message'], 'You can not edit an item that is not manually posted')
-
+        self.assertEqual(
+            response.data['message'], 'You can not edit an item that is not manually posted')
