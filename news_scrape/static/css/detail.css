@@ -5,3 +5,7 @@ a {
 .tag {
   color: brown;
 }
+.back {
+    text-align: center;
+    background-color: #171c24;;
+}

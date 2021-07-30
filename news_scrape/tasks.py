@@ -95,7 +95,7 @@ def add_news_to_db():
                     type = data.get('type')
                     author = data.get('by')
                     kids = data.get('kids')
-                    date_posted = unix_to_datetime(item['time'])
+                    date_posted = unix_to_datetime(data['time'])
                     comment_object = Comment.objects.create(
                         author=author,
                         text=text,

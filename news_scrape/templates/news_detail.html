@@ -20,7 +20,8 @@
             <br><br>
             <h4>No comments for this post</h4>
             {% endif %}
-            {% for comment in comments %}
+            <div class="infi">
+                {% for comment in comments %}
             <br>
             <small>
                 <b>Author - {{ comment.author }}</b> </small>
@@ -28,15 +29,24 @@
             <div class="text">
                 <b><small>Item Type - {{comment.type}}</small></b>
             </div>
-            <b> <small>{{ comment.date_posted | timesince }} ago </b>
+            <b> <small>{{ comment.date_posted | timesince }} ago </b> </small>
             <br><br>
             {% autoescape off %}
             <h6>{{comment.text}}</h6>
             {% endautoescape %}
             <hr>
+            
             {% endfor %}
-            <a href="{{request.META.HTTP_REFERER|escape}}">Go back</a>
+            <div class="back">
+                <a href="{{request.META.HTTP_REFERER|escape}}">Go back</a>
+            </div>
+            
+            </div>
         </div>
+        
     </div>
-</div>
+    
+   </div>
+    
+
 {% endblock content %}

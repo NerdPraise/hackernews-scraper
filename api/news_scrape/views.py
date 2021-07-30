@@ -11,6 +11,9 @@ class CustomPaginator(PageNumberPagination):
 
 
 class NewsListView(generics.ListCreateAPIView):
+    """
+    View all news present in the database or create new list
+    """
     pagination_class = CustomPaginator
     serializer_class = NewsSerializer
     queryset = News.objects.order_by('-date_created')
@@ -28,6 +31,9 @@ class NewsListView(generics.ListCreateAPIView):
 
 
 class NewsDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Retrieve, Update or Delete a particular news
+    """
     serializer_class = NewsSerializer
     queryset = News.objects.get_queryset()
 
