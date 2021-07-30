@@ -1,14 +1,13 @@
 from news_scrape.models import News
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.test import APITestCase, APIClient
+from rest_framework.test import APITestCase
 
 
 class NewsTestCase(APITestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.client = APIClient()
         cls.list_url = reverse('news-list-api')
         number_of_news = 5
 
@@ -47,8 +46,8 @@ class NewsTestCase(APITestCase):
 
     def test_news_update(self):
         # call test news create for the data
-        news = self.client.post(self.list_url, self.news_create_data)
-        news_id = news.data['id']
+        response = self.client.post(self.list_url, self.news_create_data)
+        news_id = response.data['id']
         response = self.client.patch(
             reverse('news-detail-api', args=(news_id,)), self.update_data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

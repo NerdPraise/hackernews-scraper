@@ -46,7 +46,7 @@ class NewsDetailView(generics.RetrieveUpdateDestroyAPIView):
                     {'message': 'You can not edit an item that is not manually posted'},
                     status=HTTP_400_BAD_REQUEST)
 
-            return self.update(request, *args, **kwargs)
+            return super(NewsDetailView, self).update(request, *args, **kwargs)
         except News.DoesNotExist:
             return Response({'message': 'Item does not exist'}, status=HTTP_404_NOT_FOUND)
 
@@ -56,7 +56,7 @@ class NewsDetailView(generics.RetrieveUpdateDestroyAPIView):
             news = News.objects.get(id=news_id)
             if not news.is_posted:
                 return Response({'message': 'You can not delete an item that is not manually posted'}, status=HTTP_400_BAD_REQUEST)
-
-            return self.dele(request, *args, **kwargs)
+    
+            return super(NewsDetailView, self).delete(request, *args, **kwargs)
         except News.DoesNotExist:
             return Response({'message': 'Item does not exist'}, status=HTTP_404_NOT_FOUND)
