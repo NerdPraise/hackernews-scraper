@@ -14,7 +14,7 @@ class NewsList(ListView):
         filter_param = self.request.GET.get('news_type')
         if filter_param:
             queryset = News.objects.filter(
-                type=filter_param).order_by('date_created')
+                type=filter_param).order_by('-date_created')
         else:
             queryset = News.objects.all().order_by('-date_created')
         print(len(queryset))
@@ -30,7 +30,7 @@ class SearchNews(ListView):
     def get_queryset(self):
         search_word = self.request.GET.get('search')
         queryset = News.objects.filter(
-            title__icontains=search_word).order_by('date_created')
+            title__icontains=search_word).order_by('-date_created')
         return queryset
 
 
